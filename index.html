@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feliz Cumpleaños Vida Mía</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <style>
@@ -41,8 +41,7 @@
             animation: flotar 3s ease-in-out infinite;
         }
         .titulo-bienvenida {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             color: #ff4d6d;
             margin-top: 20px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
@@ -67,29 +66,29 @@
 
         /* CONTENIDO IZQUIERDO: CARTA Y CONTADOR */
         .contenido-izq {
-            width: 45%;
+            width: 42%;
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 5%;
-            z-index: 2;
+            padding: 0 4%;
+            z-index: 5;
         }
         
         .contador-box {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.92);
             padding: 25px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.15);
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.12);
             margin-bottom: 30px;
             width: 100%;
             max-width: 450px;
-            opacity: 0; /* Oculto inicialmente para animarlo con GSAP */
+            opacity: 0;
             transform: translateY(30px);
         }
         .contador-box h3 {
             color: #c9184a;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 15px;
             text-align: center;
         }
@@ -106,42 +105,41 @@
             border: 1px solid #ffb3c6;
         }
         .tiempo-unidad {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: #ff4d6d;
             display: block;
         }
         .tiempo-label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #800f2f;
             text-transform: uppercase;
             font-weight: 600;
         }
 
         .texto-carta {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             line-height: 1.7;
             color: #590d22;
-            height: 220px;
+            height: 250px;
             max-width: 450px;
         }
 
-        /* CONTENIDO DERECHO: ÁRBOL ANIMADO */
+        /* CONTENIDO DERECHO: ÁRBOL CALIGRÁFICO */
         .contenido-der {
-            width: 55%;
+            width: 58%;
             height: 100%;
             position: relative;
             display: flex;
             justify-content: center;
-            align-items: flex-end;
-            padding-bottom: 2vh;
+            align-items: center;
         }
 
         .contenedor-arbol-svg {
             position: relative;
             width: 100%;
-            max-width: 600px;
-            height: 80vh;
+            max-width: 650px;
+            height: 90vh;
         }
 
         svg {
@@ -150,55 +148,42 @@
             overflow: visible;
         }
 
-        /* Letras superpuestas al árbol */
-        .letras-arbol {
-            position: absolute;
-            top: 30%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            width: 100%;
-            pointer-events: none;
+        /* Estilo de las ramas vectoriales */
+        .rama-tronco {
+            stroke: #5c3d2e;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
         }
-        .letras-arbol span {
-            font-family: 'Dancing Script', cursive;
-            color: #c9184a;
-            display: block;
-            opacity: 0;
-            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
-        }
-        .palabra-feliz { font-size: 5.5rem; margin-bottom: -20px; transform: rotate(-5deg); }
-        .palabra-cumple { font-size: 4.5rem; transform: rotate(2deg); }
 
-        /* Corazones (Hojas) */
+        /* Hojas de corazón absolutas alineadas al SVG */
         .corazon-hoja {
             position: absolute;
             color: #ff4d6d;
             opacity: 0;
-            transform: scale(0);
+            transform: translate(-50%, -50%) scale(0);
             pointer-events: none;
-            /* Usamos un caracter unicode de corazón */
+            z-index: 3;
+            line-height: 1;
         }
 
-        /* Animaciones CSS Base */
+        /* Animaciones base */
         @keyframes flotar {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-12px); }
         }
         @keyframes parpadeo {
             0%, 100% { opacity: 0.4; }
             50% { opacity: 1; }
         }
 
-        /* Responsive Móvil */
+        /* Adaptación pantallas móviles */
         @media (max-width: 768px) {
-            #pantalla2 { flex-direction: column-reverse; }
-            .contenido-izq, .contenido-der { width: 100%; height: 50%; padding: 0 5%; }
-            .contenedor-arbol-svg { height: 100%; margin-top: 20px; }
-            .palabra-feliz { font-size: 3.5rem; }
-            .palabra-cumple { font-size: 2.8rem; }
-            .contador-box { padding: 15px; margin-bottom: 15px; }
-            .texto-carta { font-size: 1.1rem; height: auto; }
+            #pantalla2 { flex-direction: column-reverse; overflow-y: auto; }
+            .contenido-izq { width: 100%; height: auto; padding: 40px 20px; }
+            .contenido-der { width: 100%; height: 60vh; }
+            .contenedor-arbol-svg { height: 100%; width: 95%; }
+            .texto-carta { height: auto; }
         }
     </style>
 </head>
@@ -207,13 +192,13 @@
     <div id="pantalla1" onclick="iniciarMagia()">
         <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=500" alt="Tu Novia" class="foto-cumple">
         <h1 class="titulo-bienvenida">Feliz cumpleaños vida mía ❤️</h1>
-        <p class="indicador-clic">Haz clic en cualquier parte para continuar...</p>
+        <p class="indicador-clic">Haz clic en cualquier parte para ver la magia...</p>
     </div>
 
     <div id="pantalla2">
         <div class="contenido-izq">
             <div id="contador" class="contador-box">
-                <h3>Esta hermosa historia comenzó hace:</h3>
+                <h3>Nuestra hermosa historia lleva:</h3>
                 <div class="tiempo-grid">
                     <div><span id="anos" class="tiempo-unidad">00</span><span class="tiempo-label">Años</span></div>
                     <div><span id="dias" class="tiempo-unidad">00</span><span class="tiempo-label">Días</span></div>
@@ -226,21 +211,49 @@
 
         <div class="contenido-der">
             <div class="contenedor-arbol-svg" id="zonaArbol">
-                <svg viewBox="0 0 500 500" id="miArbol">
-                    <g fill="none" stroke="#5c3d2e" stroke-linecap="round" stroke-linejoin="round">
-                        <path class="rama" stroke-width="14" d="M 250,500 C 250,400 240,350 250,280" />
-                        <path class="rama" stroke-width="8" d="M 248,380 C 180,350 120,280 80,220" />
-                        <path class="rama" stroke-width="5" d="M 160,310 C 120,280 90,260 50,280" />
-                        <path class="rama" stroke-width="8" d="M 252,350 C 320,310 380,250 420,180" />
-                        <path class="rama" stroke-width="6" d="M 330,290 C 370,270 420,280 460,250" />
-                        <path class="rama" stroke-width="6" d="M 250,280 C 230,200 270,150 240,80" />
+                <svg viewBox="0 0 600 600" id="svgArbol">
+                    <g id="capaRamas">
+                        <path id="tronco" class="rama-tronco" stroke-width="12" d="M 300,580 C 300,500 295,450 300,400" />
+                        
+                        <path id="palabraFeliz" class="rama-tronco" stroke-width="6" d="M 300,400 
+                                 C 260,390 200,340 180,310 
+                                 C 160,280 150,230 180,210 
+                                 C 200,195 215,220 200,240 
+                                 C 180,265 160,250 155,240 
+                                 C 145,220 185,210 210,215 
+                                 C 230,220 235,245 220,250 
+                                 C 205,255 195,235 225,210 
+                                 C 240,195 255,180 250,210 
+                                 C 245,240 235,255 255,250 
+                                 C 270,245 275,215 270,205
+                                 C 265,195 255,200 260,225
+                                 C 265,250 280,255 295,240
+                                 C 310,225 320,185 305,180
+                                 C 290,175 285,210 310,230
+                                 C 325,240 340,245 350,220" />
+                        
+                        <path id="palabraCumple" class="rama-tronco" stroke-width="5" d="M 300,400 
+                                 C 340,395 390,360 410,340
+                                 C 440,310 450,270 420,260
+                                 C 390,250 370,280 395,300
+                                 C 410,310 430,290 435,275
+                                 C 445,250 415,255 405,280
+                                 C 395,305 425,310 445,290
+                                 C 460,275 470,250 450,255
+                                 C 435,260 430,290 455,300
+                                 C 475,310 490,280 480,260
+                                 C 470,245 460,270 475,295
+                                 C 485,310 510,295 500,265
+                                 C 490,240 475,260 490,290
+                                 C 500,310 525,300 520,270
+                                 C 515,245 505,260 520,285
+                                 C 530,300 545,290 540,275
+                                 C 535,260 525,270 535,295
+                                 C 545,310 565,290 555,260
+                                 C 545,230 525,240 540,270
+                                 C 550,290 575,275 570,250" />
                     </g>
                 </svg>
-
-                <div class="letras-arbol">
-                    <span class="palabra-feliz" id="txtFeliz">Feliz</span>
-                    <span class="palabra-cumple" id="txtCumple">Cumpleaños</span>
-                </div>
             </div>
         </div>
     </div>
@@ -249,43 +262,68 @@
         const fechaNacimiento = new Date('1996-06-22T00:00:00');
         const mensajeAmor = "Hoy celebras 30 años de llenar el mundo de luz, alegría y de ser la persona más increíble que conozco. Gracias por compartir tu vida conmigo, por cada risa, cada abrazo y cada momento. Eres mi felicidad entera. Que este nuevo año de vida te traiga todo lo hermoso que te mereces. ¡Te amo con todo mi corazón! ❤️";
 
-        // Preparar las rutas SVG para la animación
-        const ramas = document.querySelectorAll('.rama');
-        ramas.forEach(rama => {
-            const longitud = rama.getTotalLength();
-            rama.style.strokeDasharray = longitud;
-            rama.style.strokeDashoffset = longitud; // Ocultas al inicio
+        const svg = document.getElementById('svgArbol');
+        const zonaArbol = document.getElementById('zonaArbol');
+        const coloresCorazones = ['#ff4d6d', '#ff758f', '#ffb3c6', '#c9184a', '#ff85a1'];
+
+        // Ocultar las ramas inicialmente calculando su longitud exacta
+        const pathsRamas = ['#tronco', '#palabraFeliz', '#palabraCumple'];
+        pathsRamas.forEach(id => {
+            const p = document.querySelector(id);
+            const len = p.getTotalLength();
+            p.style.strokeDasharray = len;
+            p.style.strokeDashoffset = len;
         });
 
-        // Generar corazones (Hojas) en el DOM
-        const zonaArbol = document.getElementById('zonaArbol');
-        const coloresCorazones = ['#ff4d6d', '#ff758f', '#ffb3c6', '#c9184a'];
-        
-        for(let i = 0; i < 120; i++) {
-            let corazon = document.createElement('div');
-            corazon.innerHTML = '❤';
-            corazon.className = 'corazon-hoja';
+        // FUNCIÓN CLAVE: Distribuir corazones EXACTAMENTE siguiendo el recorrido de las palabras cursivas
+        function generarCorazonesEnRamas(idPath, cantidad, delayBase) {
+            const path = document.querySelector(idPath);
+            const totalLen = path.getTotalLength();
+            const rectArbol = zonaArbol.getBoundingClientRect();
             
-            // Distribuir los corazones aleatoriamente en la zona superior (la copa del árbol)
-            let posX = Math.random() * 90 + 5; // 5% a 95% ancho
-            let posY = Math.random() * 60 + 5; // 5% a 65% alto
-            
-            let tamano = Math.random() * 1.5 + 0.8; // Tamaños variados
-            let color = coloresCorazones[Math.floor(Math.random() * coloresCorazones.length)];
-            let rotacion = Math.random() * 60 - 30; // Inclinación aleatoria
+            // Obtenemos las dimensiones de escala del SVG real en pantalla
+            const svgWidth = 600;
+            const svgHeight = 600;
 
-            corazon.style.left = `${posX}%`;
-            corazon.style.top = `${posY}%`;
-            corazon.style.fontSize = `${tamano}rem`;
-            corazon.style.color = color;
-            corazon.style.transform = `rotate(${rotacion}deg) scale(0)`;
-            
-            zonaArbol.appendChild(corazon);
+            for (let i = 0; i < cantidad; i++) {
+                // Distribuimos los corazones uniformemente a lo largo de la longitud del trazo de la palabra
+                const distanciaSeparacion = (totalLen / cantidad) * i;
+                const puntoSVG = path.getPointAtLength(distanciaSeparacion);
+
+                // Convertimos coordenadas del plano del SVG (0-600) a porcentajes del contenedor web
+                const pctX = (puntoSVG.x / svgWidth) * 100;
+                const pctY = (puntoSVG.y / svgHeight) * 100;
+
+                // Añadimos una pequeña variación aleatoria para simular el follaje natural de un árbol
+                const dispersionX = (Math.random() * 24 - 12); // Desviación en píxeles
+                const dispersionY = (Math.random() * 24 - 12); 
+
+                let corazon = document.createElement('div');
+                corazon.innerHTML = '❤';
+                corazon.className = 'corazon-hoja';
+                
+                // Variaciones visuales individuales
+                const tamano = Math.random() * 0.9 + 0.6; // tamaños entre 0.6rem y 1.5rem
+                const color = coloresCorazones[Math.floor(Math.random() * coloresCorazones.length)];
+                const rotacion = Math.random() * 50 - 25;
+
+                corazon.style.left = `calc(${pctX}% + ${dispersionX}px)`;
+                corazon.style.top = `calc(${pctY}% + ${dispersionY}px)`;
+                corazon.style.fontSize = `${tamano}rem`;
+                corazon.style.color = color;
+                
+                // Guardamos una clase identificadora para animarlos secuencialmente con GSAP
+                corazon.classList.add(`hojas-${idPath.replace('#', '')}`);
+                
+                zonaArbol.appendChild(corazon);
+            }
         }
 
-        // Función Principal de Animación
+        // Generamos los corazones anclados a la geometría exacta de la cursiva antes de empezar la animación
+        generarCorazonesEnRamas('#palabraFeliz', 90);
+        generarCorazonesEnRamas('#palabraCumple', 130);
+
         function iniciarMagia() {
-            // Ocultar pantalla 1
             const p1 = document.getElementById('pantalla1');
             p1.style.opacity = '0';
             
@@ -295,42 +333,61 @@
                 p2.style.opacity = '1';
                 p2.style.pointerEvents = 'auto';
                 
-                // Iniciar la línea de tiempo de GSAP (Animación profesional)
+                // Línea de tiempo maestra de GSAP
                 const tl = gsap.timeline();
 
-                // 1. Dibujar el árbol de abajo hacia arriba
-                tl.to('.rama', {
+                // 1. Crece primero el tronco central
+                tl.to('#tronco', {
                     strokeDashoffset: 0,
-                    duration: 2.5,
-                    ease: "power2.inOut",
-                    stagger: 0.2 // Dibuja una rama después de otra
+                    duration: 1.2,
+                    ease: "power1.inOut"
                 })
+                // 2. Nacen las ramas caligráficas laterales y se escriben solas de forma simultánea
+                .to('#palabraFeliz', {
+                    strokeDashoffset: 0,
+                    duration: 3.5,
+                    ease: "power1.out"
+                }, "-=0.2")
+                .to('#palabraCumple', {
+                    strokeDashoffset: 0,
+                    duration: 4.2,
+                    ease: "power1.out"
+                }, "-=3.2")
                 
-                // 2. Aparecer las letras suavemente
-                .to('#txtFeliz', { opacity: 1, y: -20, duration: 1, ease: "back.out(1.5)" }, "-=1")
-                .to('#txtCumple', { opacity: 1, y: -20, duration: 1, ease: "back.out(1.5)" }, "-=0.7")
-                
-                // 3. Brotar las hojas (corazones) con un efecto "Pop"
-                .to('.corazon-hoja', {
+                // 3. Brotan de inmediato los corazones sobre la palabra "Feliz" siguiendo el trazo
+                .to('.hojas-palabraFeliz', {
                     scale: 1,
-                    opacity: 1,
-                    duration: 0.6,
-                    stagger: 0.015, // Brotan uno por uno rapidísimo
-                    ease: "back.out(2)"
-                }, "-=0.5")
+                    opacity: 0.95,
+                    duration: 0.8,
+                    stagger: 0.008, 
+                    ease: "back.out(2.5)"
+                }, "-=2.2")
 
-                // 4. Mostrar el contador y empezar a escribir la carta
-                .to('#contador', { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "+=0.5")
+                // 4. Brotan los corazones sobre la palabra "Cumpleaños" siguiendo su trazo caligráfico
+                .to('.hojas-palabraCumple', {
+                    scale: 1,
+                    opacity: 0.95,
+                    duration: 0.8,
+                    stagger: 0.006,
+                    ease: "back.out(2.5)"
+                }, "-=1.8")
+
+                // 5. Se revela el panel de carta/contador izquierdo y se ejecuta la máquina de escribir
+                .to('#contador', { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 1.2, 
+                    ease: "power3.out" 
+                }, "-=0.5")
                 .call(() => {
                     actualizarContador();
                     setInterval(actualizarContador, 60000);
-                    maquinaEscribir(mensajeAmor, 'textoEmocional', 40);
+                    maquinaEscribir(mensajeAmor, 'textoEmocional', 35);
                 });
 
             }, 1000);
         }
 
-        // Lógicas de Contador y Máquina de Escribir (Intactas)
         function actualizarContador() {
             const ahora = new Date();
             let anos = ahora.getFullYear() - fechaNacimiento.getFullYear();
