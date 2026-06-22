@@ -3,412 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feliz Cumpleaños Vida Mía</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <title>Feliz Cumpleaños Vida Mía 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@500;700&family=EB+Garamond:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            background-color: #ffeef2;
-            font-family: 'Nunito', sans-serif;
+            background-image: linear-gradient(rgba(74, 61, 49, 0.7), rgba(74, 61, 49, 0.7)), 
+                              url('https://github.com/Nabil-Byte0/Cumplea-os-Mi-vida-/blob/main/Fondo.jpg?raw=true');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'EB Garamond', serif;
             overflow: hidden;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 20px;
+            perspective: 1500px;
         }
 
-        /* PANTALLA 1: BIENVENIDA */
+        .filtro-svg { position: absolute; width: 0; height: 0; }
+
         #pantalla1 {
             text-align: center;
             z-index: 10;
             transition: opacity 1s ease;
             cursor: pointer;
             padding: 20px;
+            color: #e6d5b8;
         }
         .foto-cumple {
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
+            width: 210px;
+            height: 270px;
+            border-radius: 50% / 45% 45% 55% 55%; 
             object-fit: cover;
-            border: 5px solid #ff4d6d;
-            box-shadow: 0 8px 25px rgba(255, 77, 109, 0.3);
-            animation: flotar 3s ease-in-out infinite;
+            border: 6px double #d4af37; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            animation: flotar 4s ease-in-out infinite;
         }
         .titulo-bienvenida {
+            font-family: 'Cinzel Decorative', serif;
             font-size: 2.5rem;
-            color: #ff4d6d;
-            margin-top: 20px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            color: #fffaf0;
+            margin-top: 25px;
+            line-height: 1.3;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .indicador-clic {
-            font-size: 1.1rem;
-            color: #ff758f;
-            margin-top: 15px;
-            animation: parpadeo 1.5s infinite;
+            font-style: italic;
+            color: #d4c4a8;
+            margin-top: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            font-weight: bold;
+            animation: parpadeo 2s infinite;
         }
 
-        /* PANTALLA 2: CONTENEDOR PRINCIPAL */
         #pantalla2 {
             position: absolute;
             width: 100%;
             height: 100%;
             display: flex;
-            opacity: 0;
-            pointer-events: none;
-            background: linear-gradient(to bottom, #ffeef2, #ffcad4);
-        }
-
-        /* CONTENIDO IZQUIERDO: CARTA Y CONTADOR */
-        .contenido-izq {
-            width: 42%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 4%;
-            z-index: 5;
-        }
-        
-        .contador-box {
-            background: rgba(255, 255, 255, 0.92);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.12);
-            margin-bottom: 30px;
-            width: 100%;
-            max-width: 450px;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        .contador-box h3 {
-            color: #c9184a;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .tiempo-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            text-align: center;
-        }
-        .tiempo-grid div {
-            background: #fff0f3;
-            padding: 10px 5px;
-            border-radius: 12px;
-            border: 1px solid #ffb3c6;
-        }
-        .tiempo-unidad {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #ff4d6d;
-            display: block;
-        }
-        .tiempo-label {
-            font-size: 0.75rem;
-            color: #800f2f;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .texto-carta {
-            font-size: 1.2rem;
-            line-height: 1.7;
-            color: #590d22;
-            height: 250px;
-            max-width: 450px;
-        }
-
-        /* CONTENIDO DERECHO: ÁRBOL CALIGRÁFICO */
-        .contenido-der {
-            width: 58%;
-            height: 100%;
-            position: relative;
-            display: flex;
             justify-content: center;
             align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            padding: 20px;
         }
 
-        .contenedor-arbol-svg {
-            position: relative;
+        .tarjeta-contenedor-3d {
             width: 100%;
-            max-width: 650px;
-            height: 90vh;
+            max-width: 540px; 
+            height: 85vh; 
+            max-height: 650px;
+            position: relative;
+            transform-style: preserve-3d;
         }
 
-        svg {
+        .tarjeta-contenido {
             width: 100%;
             height: 100%;
-            overflow: visible;
-        }
-
-        /* Estilo de las ramas vectoriales */
-        .rama-tronco {
-            stroke: #5c3d2e;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            fill: none;
-        }
-
-        /* Hojas de corazón absolutas alineadas al SVG */
-        .corazon-hoja {
+            padding: 40px 45px 75px 45px;
             position: absolute;
-            color: #ff4d6d;
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0);
-            pointer-events: none;
-            z-index: 3;
-            line-height: 1;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            background: transparent;
+            backface-visibility: hidden;
+            transition: transform 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 1.2s ease;
+            transform-origin: left center;
         }
 
-        /* Animaciones base */
-        @keyframes flotar {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-        @keyframes parpadeo {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; }
+        .tarjeta-contenido::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, #f3e1c2 40%, #dfc397 75%, #b59263 95%, #8c6539 100%);
+            filter: url(#borde-pergamino);
+            box-shadow: inset 0 0 40px rgba(92, 59, 29, 0.55), inset 0 0 10px rgba(0, 0, 0, 0.3), 5px 15px 35px rgba(0, 0, 0, 0.5);
+            z-index: 1;
         }
 
-        /* Adaptación pantallas móviles */
-        @media (max-width: 768px) {
-            #pantalla2 { flex-direction: column-reverse; overflow-y: auto; }
-            .contenido-izq { width: 100%; height: auto; padding: 40px 20px; }
-            .contenido-der { width: 100%; height: 60vh; }
-            .contenedor-arbol-svg { height: 100%; width: 95%; }
-            .texto-carta { height: auto; }
-        }
+        .tarjeta-contenido.activa { transform: rotateY(0deg); z-index: 5; opacity: 1; }
+        .tarjeta-contenido.pasada { transform: rotateY(-140deg); z-index: 2; opacity: 0; pointer-events: none; }
+        .tarjeta-contenido.futura { transform: rotateY(20deg); z-index: 1; opacity: 0; pointer-events: none; }
+
+        .contenido-seguro { position: relative; z-index: 2; width: 100%; height: 100%; display: flex; flex-direction: column; }
+
+        .contador-box { width: 100%; margin-bottom: 20px; border-bottom: 1px dashed rgba(92, 59, 29, 0.6); padding-bottom: 15px; flex-shrink: 0; opacity: 0; }
+        .contador-box h3 { font-family: 'Cinzel', serif; color: #38220f; font-size: 0.95rem; margin-bottom: 10px; text-align: center; letter-spacing: 2px; font-weight: 700; }
+        .tiempo-grid { display: flex; justify-content: center; gap: 20px; text-align: center; }
+        .tiempo-unidad { font-family: 'Cinzel', serif; font-size: 1.7rem; font-weight: 700; color: #7a1f1f; }
+        .tiempo-label { font-size: 0.75rem; color: #4a3119; font-style: italic; font-weight: 600; display: block; }
+
+        .texto-carta { font-family: 'EB Garamond', serif; font-size: 1.3rem; font-weight: 500; line-height: 1.55; color: #1a1008; text-align: justify; width: 100%; height: 100%; white-space: pre-wrap; opacity: 0; }
+
+        .btn-siguiente { position: absolute; bottom: 25px; right: 40px; background: none; border: none; font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 700; color: #7a1f1f; cursor: pointer; display: flex; align-items: center; gap: 8px; z-index: 10; transition: transform 0.3s ease, color 0.3s ease; text-transform: uppercase; letter-spacing: 1px; opacity: 0; }
+        .btn-siguiente:hover { transform: translateX(4px); color: #4a1010; }
+
+        @keyframes flotar { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-12px) rotate(1deg); } }
+        @keyframes parpadeo { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
     </style>
 </head>
 <body>
 
+    <svg class="filtro-svg"><defs><filter id="borde-pergamino"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise" /><feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" /></filter></defs></svg>
+
     <div id="pantalla1" onclick="iniciarMagia()">
-        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=500" alt="Tu Novia" class="foto-cumple">
-        <h1 class="titulo-bienvenida">Feliz cumpleaños vida mía ❤️</h1>
-        <p class="indicador-clic">Haz clic en cualquier parte para ver la magia...</p>
+        <img src="https://github.com/Nabil-Byte0/Cumplea-os-Mi-vida-/blob/main/Mi%20ni%C3%B1a%20Hermosa.png?raw=true" alt="Tu Novia" class="foto-cumple">
+        <h1 class="titulo-bienvenida">Feliz Cumpleaños<br>Vida Mía</h1>
+        <p class="indicador-clic">Romper el sello del pergamino</p>
     </div>
 
     <div id="pantalla2">
-        <div class="contenido-izq">
-            <div id="contador" class="contador-box">
-                <h3>Nuestra hermosa historia lleva:</h3>
-                <div class="tiempo-grid">
-                    <div><span id="anos" class="tiempo-unidad">00</span><span class="tiempo-label">Años</span></div>
-                    <div><span id="dias" class="tiempo-unidad">00</span><span class="tiempo-label">Días</span></div>
-                    <div><span id="horas" class="tiempo-unidad">00</span><span class="tiempo-label">Horas</span></div>
-                    <div><span id="mins" class="tiempo-unidad">00</span><span class="tiempo-label">Min</span></div>
+        <div class="tarjeta-contenedor-3d">
+            <div class="tarjeta-contenido activa" id="pag1">
+                <div class="contenido-seguro">
+                    <div class="contador-box" id="cajaContador">
+                        <h3>Esta hermosura nacio hace:</h3>
+                        <div class="tiempo-grid">
+                            <div><span id="anos" class="tiempo-unidad">0</span><span class="tiempo-label">Años</span></div>
+                            <div><span id="dias" class="tiempo-unidad">0</span><span class="tiempo-label">Días</span></div>
+                            <div><span id="horas" class="tiempo-unidad">0</span><span class="tiempo-label">Hrs</span></div>
+                            <div><span id="mins" class="tiempo-unidad">0</span><span class="tiempo-label">Min</span></div>
+                        </div>
+                    </div>
+                    <div id="textoPag1" class="texto-carta"></div>
                 </div>
+                <button class="btn-siguiente" id="btn1" onclick="cambiarPagina(1, 'adelante')">Siguiente Pagina <svg width="16" height="16" viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/></svg></button>
             </div>
-            <div id="textoEmocional" class="texto-carta"></div>
-        </div>
-
-        <div class="contenido-der">
-            <div class="contenedor-arbol-svg" id="zonaArbol">
-                <svg viewBox="0 0 600 600" id="svgArbol">
-                    
-<g id="capaRamas">
-    <path id="tronco" class="rama-tronco" stroke-width="14"
-          d="M300 580 C300 520 300 470 300 410"/>
-
-    <path id="ramaIzq" class="rama-tronco" stroke-width="9"
-          d="M300 410 C270 370 230 330 180 290"/>
-
-    <path id="ramaDer" class="rama-tronco" stroke-width="9"
-          d="M300 410 C340 370 390 330 450 285"/>
-
-    <text id="textoFeliz"
-          x="120" y="245"
-          font-size="82"
-          font-family="'Great Vibes', cursive"
-          fill="none"
-          stroke="#5c3d2e"
-          stroke-width="2.8">Feliz</text>
-
-    <text id="textoCumple"
-          x="60" y="340"
-          font-size="90"
-          font-family="'Great Vibes', cursive"
-          fill="none"
-          stroke="#5c3d2e"
-          stroke-width="2.8">Cumpleaños</text>
-</g>
-
-                </svg>
+            <div class="tarjeta-contenido futura" id="pag2">
+                <div class="contenido-seguro"><div id="textoPag2" class="texto-carta"></div></div>
+                <button class="btn-siguiente" id="btn2" style="opacity: 1; left: 40px; right: auto;" onclick="cambiarPagina(2, 'atras')">Atrás</button>
+                <button class="btn-siguiente" id="btn2-sig" style="opacity: 0;" onclick="cambiarPagina(2, 'adelante')">Siguiente</button>
+            </div>
+            <div class="tarjeta-contenido futura" id="pag3">
+                <div class="contenido-seguro"><div id="textoPag3" class="texto-carta"></div></div>
+                <button class="btn-siguiente" id="btn3" style="opacity: 1; left: 40px; right: auto;" onclick="cambiarPagina(3, 'atras')">Atrás</button>
             </div>
         </div>
     </div>
 
     <script>
         const fechaNacimiento = new Date('1996-06-22T00:00:00');
-        const mensajeAmor = "Hoy celebras 30 años de llenar el mundo de luz, alegría y de ser la persona más increíble que conozco. Gracias por compartir tu vida conmigo, por cada risa, cada abrazo y cada momento. Eres mi felicidad entera. Que este nuevo año de vida te traiga todo lo hermoso que te mereces. ¡Te amo con todo mi corazón! ❤️";
+        const paginasTexto = [
+            `Hola mi amor, en este día tan especial quiero recordarte la expendida y maravillosa persona que fuiste, eres y serás (No tengo la menor duda). Se que no es la manera en que te gustaría y que me gustaría a mi darte esto, pero es lo que puedo hacer y permitir de la distancia que nos separa.\n\nTu eres una persona inigualable que siempre saca lo mejor de las personas que rodea, eres una gran inspiración y orgullo para mi y no sabes que tan afortunado me siento todos los días de tener a una mujer como lo eres tu: tan maravillosa, tan especial, tan hermosa, tan única.`,
+            `Doy gracias a la vida por ponerme en tu camino y que me vieras por lo que me ves, siento que toda mi suerte y el de todas mis vidas se concentraron en ti y en el que estés presente en mi vida.\n\nQuisiera ser un mejor hombre para ti y me encetaría ser la persona que necesitas en este momento, pero quiero decirte que aunque el camino sea un poco extenso y complejo, nunca me rendiré de intentar ser ese hombre para ti, hasta logarlo. Quisiera llenarte de regalos y que este día fuera el día mas inolvidable de tu vida, que, por circunstancias de la vida no va a transcurrir como quisiera.\n\nSin mas, quiero desearte un muy feliz cumpleaños, eres una persona muy especial y alguien extraordinaria en mi vida, que me hace cada día ser mejor.`,
+            `Nunca cambies ya que tu eres completamente perfecta ante mis ojos. Tu vida vale mas que cualquier cosa que pueda tener o comprar y es demasiado hermoso que decidas compartirla conmigo.\n\nAnhelo escribirte y desearte por muchos años mas cartas como esta, poder entregarlas y brindarlas como corresponde, se que Dios tiene un futuro muy hermoso preparado para nosotros con un sin fin de momentos y experiencias juntos. Te amo y gracias a la vida y a Dios por tenerte presente y darte mucha salud y bienestar.\n\nCon mucho amor y anhelo... Te amo con todo mi corazón, mi alma y cuerpo, y espero poder celebrar muchos años mas a tu lado. \n\nTe desea Feliz Cumpleaños, tu gatito Nabil 💕.`
+        ];
 
-        const svg = document.getElementById('svgArbol');
-        const zonaArbol = document.getElementById('zonaArbol');
-        const coloresCorazones = ['#ff4d6d', '#ff758f', '#ffb3c6', '#c9184a', '#ff85a1'];
-
-        // Ocultar las ramas inicialmente calculando su longitud exacta
-        const pathsRamas = ['#tronco', '#palabraFeliz', '#palabraCumple'];
-        pathsRamas.forEach(id => {
-            const p = document.querySelector(id);
-            const len = p.getTotalLength();
-            p.style.strokeDasharray = len;
-            p.style.strokeDashoffset = len;
-        });
-
-        // FUNCIÓN CLAVE: Distribuir corazones EXACTAMENTE siguiendo el recorrido de las palabras cursivas
-        function generarCorazonesEnRamas(idPath, cantidad, delayBase) {
-            const path = document.querySelector(idPath);
-            const totalLen = path.getTotalLength();
-            const rectArbol = zonaArbol.getBoundingClientRect();
-            
-            // Obtenemos las dimensiones de escala del SVG real en pantalla
-            const svgWidth = 600;
-            const svgHeight = 600;
-
-            for (let i = 0; i < cantidad; i++) {
-                // Distribuimos los corazones uniformemente a lo largo de la longitud del trazo de la palabra
-                const distanciaSeparacion = (totalLen / cantidad) * i;
-                const puntoSVG = path.getPointAtLength(distanciaSeparacion);
-
-                // Convertimos coordenadas del plano del SVG (0-600) a porcentajes del contenedor web
-                const pctX = (puntoSVG.x / svgWidth) * 100;
-                const pctY = (puntoSVG.y / svgHeight) * 100;
-
-                // Añadimos una pequeña variación aleatoria para simular el follaje natural de un árbol
-                const dispersionX = (Math.random() * 24 - 12); // Desviación en píxeles
-                const dispersionY = (Math.random() * 24 - 12); 
-
-                let corazon = document.createElement('div');
-                corazon.innerHTML = '❤';
-                corazon.className = 'corazon-hoja';
-                
-                // Variaciones visuales individuales
-                const tamano = Math.random() * 0.9 + 0.6; // tamaños entre 0.6rem y 1.5rem
-                const color = coloresCorazones[Math.floor(Math.random() * coloresCorazones.length)];
-                const rotacion = Math.random() * 50 - 25;
-
-                corazon.style.left = `calc(${pctX}% + ${dispersionX}px)`;
-                corazon.style.top = `calc(${pctY}% + ${dispersionY}px)`;
-                corazon.style.fontSize = `${tamano}rem`;
-                corazon.style.color = color;
-                
-                // Guardamos una clase identificadora para animarlos secuencialmente con GSAP
-                corazon.classList.add(`hojas-${idPath.replace('#', '')}`);
-                
-                zonaArbol.appendChild(corazon);
-            }
-        }
-
-        // Generamos los corazones anclados a la geometría exacta de la cursiva antes de empezar la animación
-        generarCorazonesEnRamas('#palabraFeliz', 90);
-        generarCorazonesEnRamas('#palabraCumple', 130);
+        let timerEscritura = null;
+        let paginasCargadas = [false, false, false];
 
         function iniciarMagia() {
             const p1 = document.getElementById('pantalla1');
             p1.style.opacity = '0';
-            
             setTimeout(() => {
                 p1.style.display = 'none';
-                const p2 = document.getElementById('pantalla2');
-                p2.style.opacity = '1';
-                p2.style.pointerEvents = 'auto';
-                
-                // Línea de tiempo maestra de GSAP
-                const tl = gsap.timeline();
+                document.getElementById('pantalla2').style.opacity = '1';
+                document.getElementById('pantalla2').style.pointerEvents = 'auto';
 
-                // 1. Crece primero el tronco central
-                tl.to('#tronco', {
-                    strokeDashoffset: 0,
-                    duration: 1.2,
-                    ease: "power1.inOut"
-                })
-                // 2. Nacen las ramas caligráficas laterales y se escriben solas de forma simultánea
-                .to('#palabraFeliz', {
-                    strokeDashoffset: 0,
-                    duration: 3.5,
-                    ease: "power1.out"
-                }, "-=0.2")
-                .to('#palabraCumple', {
-                    strokeDashoffset: 0,
-                    duration: 4.2,
-                    ease: "power1.out"
-                }, "-=3.2")
-                
-                // 3. Brotan de inmediato los corazones sobre la palabra "Feliz" siguiendo el trazo
-                .to('.hojas-palabraFeliz', {
-                    scale: 1,
-                    opacity: 0.95,
-                    duration: 0.8,
-                    stagger: 0.008, 
-                    ease: "back.out(2.5)"
-                }, "-=2.2")
-
-                // 4. Brotan los corazones sobre la palabra "Cumpleaños" siguiendo su trazo caligráfico
-                .to('.hojas-palabraCumple', {
-                    scale: 1,
-                    opacity: 0.95,
-                    duration: 0.8,
-                    stagger: 0.006,
-                    ease: "back.out(2.5)"
-                }, "-=1.8")
-
-                // 5. Se revela el panel de carta/contador izquierdo y se ejecuta la máquina de escribir
-                .to('#contador', { 
-                    opacity: 1, 
-                    y: 0, 
-                    duration: 1.2, 
-                    ease: "power3.out" 
-                }, "-=0.5")
-                .call(() => {
-                    actualizarContador();
-                    setInterval(actualizarContador, 60000);
-                    maquinaEscribir(mensajeAmor, 'textoEmocional', 35);
-                });
+                // 🔥 CAMBIO SOLO AQUÍ: animación mejorada del contador
+                gsap.fromTo('#cajaContador',
+                    { opacity: 0, y: 25, scale: 0.97 },
+                    { 
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        duration: 1.6,
+                        ease: "power3.out",
+                        onComplete: escribirContador
+                    }
+                );
 
             }, 1000);
         }
 
-        function actualizarContador() {
+        function escribirContador() {
             const ahora = new Date();
-            let anos = ahora.getFullYear() - fechaNacimiento.getFullYear();
-            let mesActual = ahora.getMonth();
-            let mesNac = fechaNacimiento.getMonth();
+            const offset = -7 * 60 * 60 * 1000;
+            const t = new Date(ahora.getTime() + (ahora.getTimezoneOffset() * 60000) + offset);
+            let anos = t.getFullYear() - fechaNacimiento.getFullYear();
+            if (t.getMonth() < fechaNacimiento.getMonth() || (t.getMonth() === fechaNacimiento.getMonth() && t.getDate() < fechaNacimiento.getDate())) anos--;
             
-            if (mesActual < mesNac || (mesActual === mesNac && ahora.getDate() < fechaNacimiento.getDate())) {
-                anos--;
-            }
+            const valores = {
+                anos: anos,
+                dias: Math.floor((t - fechaNacimiento) / 86400000),
+                horas: String(t.getHours()).padStart(2, '0'),
+                mins: String(t.getMinutes()).padStart(2, '0')
+            };
 
-            const diferenciaMs = ahora - fechaNacimiento;
-            const totalDias = Math.floor(diferenciaMs / (1000 * 60 * 60 * 24));
-            const horas = ahora.getHours();
-            const minutos = ahora.getMinutes();
+            ['anos', 'dias', 'horas', 'mins'].forEach(id => {
+                let val = String(valores[id]);
+                let i = 0;
+                let el = document.getElementById(id);
+                el.innerText = "";
+                function escribir() {
+                    if (i < val.length) {
+                        el.innerText += val[i];
+                        i++;
+                        setTimeout(escribir, 100);
+                    }
+                }
+                escribir();
+            });
 
-            document.getElementById('anos').innerText = anos;
-            document.getElementById('dias').innerText = totalDias;
-            document.getElementById('horas').innerText = String(horas).padStart(2, '0');
-            document.getElementById('mins').innerText = String(minutos).padStart(2, '0');
+            setTimeout(() => {
+                const textoEl = document.getElementById('textoPag1');
+                textoEl.style.opacity = '1';
+                escribirPagina(0, 'textoPag1', 'btn1');
+            }, 3000);
         }
 
-        function maquinaEscribir(texto, elementoId, velocidad) {
+        function escribirPagina(numPag, elementoId, botonId) {
+            if (paginasCargadas[numPag]) {
+                if(botonId) gsap.to('#' + botonId, { opacity: 1, duration: 0.5 });
+                return;
+            }
             let i = 0;
+            const texto = paginasTexto[numPag];
             const elemento = document.getElementById(elementoId);
             elemento.innerHTML = "";
-            
             function escribir() {
                 if (i < texto.length) {
                     elemento.innerHTML += texto.charAt(i);
                     i++;
-                    setTimeout(escribir, velocidad);
+                    timerEscritura = setTimeout(escribir, 8);
+                } else {
+                    paginasCargadas[numPag] = true;
+                    if (botonId) gsap.to('#' + botonId, { opacity: 1, duration: 0.5 });
                 }
             }
             escribir();
+        }
+
+        function cambiarPagina(pagActual, direccion) {
+            clearTimeout(timerEscritura);
+            if (direccion === 'adelante') {
+                document.getElementById('pag' + pagActual).className = "tarjeta-contenido pasada";
+                document.getElementById('pag' + (pagActual + 1)).className = "tarjeta-contenido activa";
+                document.getElementById('textoPag' + (pagActual + 1)).style.opacity = '1';
+                escribirPagina(pagActual, 'textoPag' + (pagActual + 1), pagActual === 1 ? 'btn2-sig' : null);
+            } else {
+                document.getElementById('pag' + pagActual).className = "tarjeta-contenido futura";
+                document.getElementById('pag' + (pagActual - 1)).className = "tarjeta-contenido activa";
+            }
         }
     </script>
 </body>
