@@ -18,6 +18,7 @@
             font-family: 'EB Garamond', serif;
             overflow: hidden;
             height: 100vh;
+            height: 100dvh; /* Fix para barras de navegación móviles */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -34,6 +35,8 @@
             cursor: pointer;
             padding: 20px;
             color: #e6d5b8;
+            width: 100%;
+            max-width: 400px;
         }
         .foto-cumple {
             width: 210px;
@@ -79,6 +82,7 @@
             width: 100%;
             max-width: 540px; 
             height: 85vh; 
+            height: 85dvh;
             max-height: 650px;
             position: relative;
             transform-style: preserve-3d;
@@ -116,7 +120,7 @@
         .tarjeta-contenido.pasada { transform: rotateY(-140deg); z-index: 2; opacity: 0; pointer-events: none; }
         .tarjeta-contenido.futura { transform: rotateY(20deg); z-index: 1; opacity: 0; pointer-events: none; }
 
-        .contenido-seguro { position: relative; z-index: 2; width: 100%; height: 100%; display: flex; flex-direction: column; }
+        .contenido-seguro { position: relative; z-index: 2; width: 100%; height: 100%; display: flex; flex-direction: column; overflow: hidden; }
 
         .contador-box { width: 100%; margin-bottom: 20px; border-bottom: 1px dashed rgba(92, 59, 29, 0.6); padding-bottom: 15px; flex-shrink: 0; opacity: 0; }
         .contador-box h3 { font-family: 'Cinzel', serif; color: #38220f; font-size: 0.95rem; margin-bottom: 10px; text-align: center; letter-spacing: 2px; font-weight: 700; }
@@ -124,13 +128,49 @@
         .tiempo-unidad { font-family: 'Cinzel', serif; font-size: 1.7rem; font-weight: 700; color: #7a1f1f; }
         .tiempo-label { font-size: 0.75rem; color: #4a3119; font-style: italic; font-weight: 600; display: block; }
 
-        .texto-carta { font-family: 'EB Garamond', serif; font-size: 1.3rem; font-weight: 500; line-height: 1.55; color: #1a1008; text-align: justify; width: 100%; height: 100%; white-space: pre-wrap; opacity: 0; }
+        .texto-carta { font-family: 'EB Garamond', serif; font-size: 1.3rem; font-weight: 500; line-height: 1.55; color: #1a1008; text-align: justify; width: 100%; height: 100%; white-space: pre-wrap; opacity: 0; overflow-y: auto; padding-right: 5px; }
 
         .btn-siguiente { position: absolute; bottom: 25px; right: 40px; background: none; border: none; font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 700; color: #7a1f1f; cursor: pointer; display: flex; align-items: center; gap: 8px; z-index: 10; transition: transform 0.3s ease, color 0.3s ease; text-transform: uppercase; letter-spacing: 1px; opacity: 0; }
         .btn-siguiente:hover { transform: translateX(4px); color: #4a1010; }
 
         @keyframes flotar { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-12px) rotate(1deg); } }
         @keyframes parpadeo { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        /* ====== OPTIMIZACIÓN CORREGIDA PARA TELÉFONOS MÓVILES ====== */
+        @media (max-width: 480px) {
+            body { padding: 10px; height: 100dvh; }
+            
+            .foto-cumple { width: 150px; height: 200px; }
+            .titulo-bienvenida { font-size: 1.7rem; margin-top: 12px; }
+            .indicador-clic { font-size: 0.75rem; margin-top: 12px; }
+
+            /* Ajuste de altura dinámica y reducción de paddings para dar más espacio al contenido */
+            .tarjeta-contenedor-3d { height: 92dvh; max-height: 660px; }
+            .tarjeta-contenido { padding: 25px 20px 55px 20px; }
+            
+            .contador-box { margin-bottom: 12px; padding-bottom: 8px; }
+            .contador-box h3 { font-size: 0.75rem; margin-bottom: 5px; letter-spacing: 1px; }
+            .tiempo-grid { gap: 12px; }
+            .tiempo-unidad { font-size: 1.3rem; }
+            .tiempo-label { font-size: 0.6rem; }
+
+            .texto-carta { 
+                font-size: 1.05rem; 
+                line-height: 1.45; 
+                scrollbar-width: thin;
+                scrollbar-color: rgba(92, 59, 29, 0.3) transparent;
+            }
+            .texto-carta::-webkit-scrollbar { width: 3px; }
+            .texto-carta::-webkit-scrollbar-thumb { background: rgba(92, 59, 29, 0.2); border-radius: 2px; }
+
+            /* Reposicionamiento seguro de los botones inferiores */
+            .btn-siguiente { bottom: 15px; right: 25px; font-size: 0.75rem; }
+            #btn2, #btn3 { left: 25px !important; right: auto !important; }
+            #btn2-sig, #btn-regalo { right: 25px !important; left: auto !important; }
+            
+            #ventanaRegalo > div { max-width: 90% !important; padding: 35px 20px !important; }
+            #ventanaRegalo p { font-size: 1.25rem !important; margin-bottom: 20px !important; }
+        }
     </style>
 </head>
 <body>
@@ -168,6 +208,17 @@
             <div class="tarjeta-contenido futura" id="pag3">
                 <div class="contenido-seguro"><div id="textoPag3" class="texto-carta"></div></div>
                 <button class="btn-siguiente" id="btn3" style="opacity: 1; left: 40px; right: auto;" onclick="cambiarPagina(3, 'atras')">Atrás</button>
+                <button class="btn-siguiente" id="btn-regalo" style="opacity: 0; right: 40px;" onclick="mostrarRegalo()">Abrir regalo</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="ventanaRegalo" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; opacity: 0;">
+        <div style="position: relative; width: 100%; max-width: 420px; padding: 45px 35px; text-align: center; border-radius: 4px;">
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle, #f3e1c2 40%, #dfc397 75%, #b59263 95%, #8c6539 100%); filter: url(#borde-pergamino); box-shadow: inset 0 0 30px rgba(92, 59, 29, 0.55), 0 10px 35px rgba(0,0,0,0.6); z-index: 1;"></div>
+            <div style="position: relative; z-index: 2;">
+                <p style="font-family: 'EB Garamond', serif; font-size: 1.7rem; font-weight: 700; color: #1a1008; line-height: 1.5; margin-bottom: 30px;">Te lo doy en diciembre 😜.<br>Te AMO.</p>
+                <button style="background: none; border: none; font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: #7a1f1f; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: transform 0.2s;" onclick="cerrarRegalo()">Cerrar</button>
             </div>
         </div>
     </div>
@@ -176,8 +227,8 @@
         const fechaNacimiento = new Date('1996-06-22T00:00:00');
         const paginasTexto = [
             `Hola mi amor, en este día tan especial quiero recordarte la expendida y maravillosa persona que fuiste, eres y serás (No tengo la menor duda). Se que no es la manera en que te gustaría y que me gustaría a mi darte esto, pero es lo que puedo hacer y permitir de la distancia que nos separa.\n\nTu eres una persona inigualable que siempre saca lo mejor de las personas que rodea, eres una gran inspiración y orgullo para mi y no sabes que tan afortunado me siento todos los días de tener a una mujer como lo eres tu: tan maravillosa, tan especial, tan hermosa, tan única.`,
-            `Doy gracias a la vida por ponerme en tu camino y que me vieras por lo que me ves, siento que toda mi suerte y el de todas mis vidas se concentraron en ti y en el que estés presente en mi vida.\n\nQuisiera ser un mejor hombre para ti y me encetaría ser la persona que necesitas en este momento, pero quiero decirte que aunque el camino sea un poco extenso y complejo, nunca me rendiré de intentar ser ese hombre para ti, hasta logarlo. Quisiera llenarte de regalos y que este día fuera el día mas inolvidable de tu vida, que, por circunstancias de la vida no va a transcurrir como quisiera.\n\nSin mas, quiero desearte un muy feliz cumpleaños, eres una persona muy especial y alguien extraordinaria en mi vida, que me hace cada día ser mejor.`,
-            `Nunca cambies ya que tu eres completamente perfecta ante mis ojos. Tu vida vale mas que cualquier cosa que pueda tener o comprar y es demasiado hermoso que decidas compartirla conmigo.\n\nAnhelo escribirte y desearte por muchos años mas cartas como esta, poder entregarlas y brindarlas como corresponde, se que Dios tiene un futuro muy hermoso preparado para nosotros con un sin fin de momentos y experiencias juntos. Te amo y gracias a la vida y a Dios por tenerte presente y darte mucha salud y bienestar.\n\nCon mucho amor y anhelo... Te amo con todo mi corazón, mi alma y cuerpo, y espero poder celebrar muchos años mas a tu lado. \n\nTe desea Feliz Cumpleaños, tu gatito Nabil 💕.`
+            `Doy gracias a la vida por ponerme en tu camino y que me vieras por lo que me ves, siento que toda mi suerte y el de todas mis vidas se concentraron in ti y en el que estés presente en mi vida.\n\nQuisiera ser un mejor hombre para ti y me encetaría ser la persona que necesitas en este momento, pero quiero decirte que aunque el camino sea un poco extenso y complejo, nunca me rendiré de intentar ser ese hombre para ti, hasta logarlo. Quisiera llenarte de regalos y que este día fuera el día mas inolvidable de tu vida, que, por circunstancias de la vida no va a transcurrir como quisiera.\n\nSin mas, quiero desearte un muy feliz cumpleaños, eres una persona muy especial y alguien extraordinaria en mi vida, que me hace cada día ser mejor.`,
+            `Nunca cambies ya que tu eres completamente perfecta ante mis ojos. Tu vida vale mas que cualquier cosa que pueda tener o comprar y es demasiado hermoso que decidas compartirla conmigo.\n\nAnhelo escribirte y desearte por muchos años mas cartas como esta, poder entregarlas y brindarlas como corresponde, se que Dios tiene un futuro muy hermoso preparado nosotros con un sin fin de momentos y experiencias juntos. Te amo y gracias a la vida y a Dios por tenerte presente y darte mucha salud y bienestar.\n\nCon mucho amor y anhelo... Te amo con todo mi corazón, mi alma y cuerpo, y espero poder celebrar muchos años mas a tu lado. \n\nTe desea Feliz Cumpleaños, tu gatito Nabil 💕.`
         ];
 
         let timerEscritura = null;
@@ -191,7 +242,6 @@
                 document.getElementById('pantalla2').style.opacity = '1';
                 document.getElementById('pantalla2').style.pointerEvents = 'auto';
 
-                // 🔥 CAMBIO SOLO AQUÍ: animación mejorada del contador
                 gsap.fromTo('#cajaContador',
                     { opacity: 0, y: 25, scale: 0.97 },
                     { 
@@ -217,14 +267,17 @@
             const valores = {
                 anos: anos,
                 dias: Math.floor((t - fechaNacimiento) / 86400000),
-                horas: String(t.getHours()).padStart(2, '0'),
+                hours: String(t.getHours()).padStart(2, '0'),
                 mins: String(t.getMinutes()).padStart(2, '0')
             };
 
-            ['anos', 'dias', 'horas', 'mins'].forEach(id => {
-                let val = String(valores[id]);
+            const mapeoIds = { anos: 'anos', dias: 'dias', hours: 'horas', mins: 'mins' };
+
+            Object.keys(mapeoIds).forEach(key => {
+                let idHtml = mapeoIds[key];
+                let val = String(valores[key]);
                 let i = 0;
-                let el = document.getElementById(id);
+                let el = document.getElementById(idHtml);
                 el.innerText = "";
                 function escribir() {
                     if (i < val.length) {
@@ -240,7 +293,7 @@
                 const textoEl = document.getElementById('textoPag1');
                 textoEl.style.opacity = '1';
                 escribirPagina(0, 'textoPag1', 'btn1');
-            }, 3000);
+            }, 1000);
         }
 
         function escribirPagina(numPag, elementoId, botonId) {
@@ -255,6 +308,7 @@
             function escribir() {
                 if (i < texto.length) {
                     elemento.innerHTML += texto.charAt(i);
+                    elemento.scrollTop = elemento.scrollHeight;
                     i++;
                     timerEscritura = setTimeout(escribir, 8);
                 } else {
@@ -271,11 +325,24 @@
                 document.getElementById('pag' + pagActual).className = "tarjeta-contenido pasada";
                 document.getElementById('pag' + (pagActual + 1)).className = "tarjeta-contenido activa";
                 document.getElementById('textoPag' + (pagActual + 1)).style.opacity = '1';
-                escribirPagina(pagActual, 'textoPag' + (pagActual + 1), pagActual === 1 ? 'btn2-sig' : null);
+                escribirPagina(pagActual, 'textoPag' + (pagActual + 1), pagActual === 1 ? 'btn2-sig' : (pagActual === 2 ? 'btn-regalo' : null));
             } else {
                 document.getElementById('pag' + pagActual).className = "tarjeta-contenido futura";
                 document.getElementById('pag' + (pagActual - 1)).className = "tarjeta-contenido activa";
             }
+        }
+
+        function mostrarRegalo() {
+            const ventana = document.getElementById('ventanaRegalo');
+            ventana.style.display = 'flex';
+            gsap.to(ventana, { opacity: 1, duration: 0.5 });
+        }
+
+        function cerrarRegalo() {
+            const ventana = document.getElementById('ventanaRegalo');
+            gsap.to(ventana, { opacity: 0, duration: 0.5, onComplete: () => {
+                ventana.style.display = 'none';
+            }});
         }
     </script>
 </body>
