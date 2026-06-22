@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Cumpleaños Vida Mía</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #ffeef2;
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* PANTALLA 1: BIENVENIDA */
+        #pantalla1 {
+            text-align: center;
+            z-index: 10;
+            transition: opacity 1s ease;
+            cursor: pointer;
+            padding: 20px;
+        }
+        .foto-cumple {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #ff4d6d;
+            box-shadow: 0 8px 25px rgba(255, 77, 109, 0.3);
+            animation: flotar 3s ease-in-out infinite;
+        }
+        .titulo-bienvenida {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #ff4d6d;
+            margin-top: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        .indicador-clic {
+            font-size: 1.1rem;
+            color: #ff758f;
+            margin-top: 15px;
+            animation: parpadeo 1.5s infinite;
+        }
+
+        /* PANTALLA 2: CONTENEDOR PRINCIPAL */
+        #pantalla2 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            opacity: 0;
+            pointer-events: none;
+            background: linear-gradient(to bottom, #ffeef2, #ffcad4);
+        }
+
+        /* CONTENIDO IZQUIERDO: CARTA Y CONTADOR */
+        .contenido-izq {
+            width: 45%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 5%;
+            z-index: 2;
+        }
+        
+        .contador-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.15);
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 450px;
+            opacity: 0; /* Oculto inicialmente para animarlo con GSAP */
+            transform: translateY(30px);
+        }
+        .contador-box h3 {
+            color: #c9184a;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .tiempo-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            text-align: center;
+        }
+        .tiempo-grid div {
+            background: #fff0f3;
+            padding: 10px 5px;
+            border-radius: 12px;
+            border: 1px solid #ffb3c6;
+        }
+        .tiempo-unidad {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ff4d6d;
+            display: block;
+        }
+        .tiempo-label {
+            font-size: 0.8rem;
+            color: #800f2f;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .texto-carta {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: #590d22;
+            height: 220px;
+            max-width: 450px;
+        }
+
+        /* CONTENIDO DERECHO: ÁRBOL ANIMADO */
+        .contenido-der {
+            width: 55%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 2vh;
+        }
+
+        .contenedor-arbol-svg {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 80vh;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        /* Letras superpuestas al árbol */
+        .letras-arbol {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 100%;
+            pointer-events: none;
+        }
+        .letras-arbol span {
+            font-family: 'Dancing Script', cursive;
+            color: #c9184a;
+            display: block;
+            opacity: 0;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+        }
+        .palabra-feliz { font-size: 5.5rem; margin-bottom: -20px; transform: rotate(-5deg); }
+        .palabra-cumple { font-size: 4.5rem; transform: rotate(2deg); }
+
+        /* Corazones (Hojas) */
+        .corazon-hoja {
+            position: absolute;
+            color: #ff4d6d;
+            opacity: 0;
+            transform: scale(0);
+            pointer-events: none;
+            /* Usamos un caracter unicode de corazón */
+        }
+
+        /* Animaciones CSS Base */
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes parpadeo {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        /* Responsive Móvil */
+        @media (max-width: 768px) {
+            #pantalla2 { flex-direction: column-reverse; }
+            .contenido-izq, .contenido-der { width: 100%; height: 50%; padding: 0 5%; }
+            .contenedor-arbol-svg { height: 100%; margin-top: 20px; }
+            .palabra-feliz { font-size: 3.5rem; }
+            .palabra-cumple { font-size: 2.8rem; }
+            .contador-box { padding: 15px; margin-bottom: 15px; }
+            .texto-carta { font-size: 1.1rem; height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="pantalla1" onclick="iniciarMagia()">
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=500" alt="Tu Novia" class="foto-cumple">
+        <h1 class="titulo-bienvenida">Feliz cumpleaños vida mía ❤️</h1>
+        <p class="indicador-clic">Haz clic en cualquier parte para continuar...</p>
+    </div>
+
+    <div id="pantalla2">
+        <div class="contenido-izq">
+            <div id="contador" class="contador-box">
+                <h3>Esta hermosa historia comenzó hace:</h3>
+                <div class="tiempo-grid">
+                    <div><span id="anos" class="tiempo-unidad">00</span><span class="tiempo-label">Años</span></div>
+                    <div><span id="dias" class="tiempo-unidad">00</span><span class="tiempo-label">Días</span></div>
+                    <div><span id="horas" class="tiempo-unidad">00</span><span class="tiempo-label">Horas</span></div>
+                    <div><span id="mins" class="tiempo-unidad">00</span><span class="tiempo-label">Min</span></div>
+                </div>
+            </div>
+            <div id="textoEmocional" class="texto-carta"></div>
+        </div>
+
+        <div class="contenido-der">
+            <div class="contenedor-arbol-svg" id="zonaArbol">
+                <svg viewBox="0 0 500 500" id="miArbol">
+                    <g fill="none" stroke="#5c3d2e" stroke-linecap="round" stroke-linejoin="round">
+                        <path class="rama" stroke-width="14" d="M 250,500 C 250,400 240,350 250,280" />
+                        <path class="rama" stroke-width="8" d="M 248,380 C 180,350 120,280 80,220" />
+                        <path class="rama" stroke-width="5" d="M 160,310 C 120,280 90,260 50,280" />
+                        <path class="rama" stroke-width="8" d="M 252,350 C 320,310 380,250 420,180" />
+                        <path class="rama" stroke-width="6" d="M 330,290 C 370,270 420,280 460,250" />
+                        <path class="rama" stroke-width="6" d="M 250,280 C 230,200 270,150 240,80" />
+                    </g>
+                </svg>
+
+                <div class="letras-arbol">
+                    <span class="palabra-feliz" id="txtFeliz">Feliz</span>
+                    <span class="palabra-cumple" id="txtCumple">Cumpleaños</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fechaNacimiento = new Date('1996-06-22T00:00:00');
+        const mensajeAmor = "Hoy celebras 30 años de llenar el mundo de luz, alegría y de ser la persona más increíble que conozco. Gracias por compartir tu vida conmigo, por cada risa, cada abrazo y cada momento. Eres mi felicidad entera. Que este nuevo año de vida te traiga todo lo hermoso que te mereces. ¡Te amo con todo mi corazón! ❤️";
+
+        // Preparar las rutas SVG para la animación
+        const ramas = document.querySelectorAll('.rama');
+        ramas.forEach(rama => {
+            const longitud = rama.getTotalLength();
+            rama.style.strokeDasharray = longitud;
+            rama.style.strokeDashoffset = longitud; // Ocultas al inicio
+        });
+
+        // Generar corazones (Hojas) en el DOM
+        const zonaArbol = document.getElementById('zonaArbol');
+        const coloresCorazones = ['#ff4d6d', '#ff758f', '#ffb3c6', '#c9184a'];
+        
+        for(let i = 0; i < 120; i++) {
+            let corazon = document.createElement('div');
+            corazon.innerHTML = '❤';
+            corazon.className = 'corazon-hoja';
+            
+            // Distribuir los corazones aleatoriamente en la zona superior (la copa del árbol)
+            let posX = Math.random() * 90 + 5; // 5% a 95% ancho
+            let posY = Math.random() * 60 + 5; // 5% a 65% alto
+            
+            let tamano = Math.random() * 1.5 + 0.8; // Tamaños variados
+            let color = coloresCorazones[Math.floor(Math.random() * coloresCorazones.length)];
+            let rotacion = Math.random() * 60 - 30; // Inclinación aleatoria
+
+            corazon.style.left = `${posX}%`;
+            corazon.style.top = `${posY}%`;
+            corazon.style.fontSize = `${tamano}rem`;
+            corazon.style.color = color;
+            corazon.style.transform = `rotate(${rotacion}deg) scale(0)`;
+            
+            zonaArbol.appendChild(corazon);
+        }
+
+        // Función Principal de Animación
+        function iniciarMagia() {
+            // Ocultar pantalla 1
+            const p1 = document.getElementById('pantalla1');
+            p1.style.opacity = '0';
+            
+            setTimeout(() => {
+                p1.style.display = 'none';
+                const p2 = document.getElementById('pantalla2');
+                p2.style.opacity = '1';
+                p2.style.pointerEvents = 'auto';
+                
+                // Iniciar la línea de tiempo de GSAP (Animación profesional)
+                const tl = gsap.timeline();
+
+                // 1. Dibujar el árbol de abajo hacia arriba
+                tl.to('.rama', {
+                    strokeDashoffset: 0,
+                    duration: 2.5,
+                    ease: "power2.inOut",
+                    stagger: 0.2 // Dibuja una rama después de otra
+                })
+                
+                // 2. Aparecer las letras suavemente
+                .to('#txtFeliz', { opacity: 1, y: -20, duration: 1, ease: "back.out(1.5)" }, "-=1")
+                .to('#txtCumple', { opacity: 1, y: -20, duration: 1, ease: "back.out(1.5)" }, "-=0.7")
+                
+                // 3. Brotar las hojas (corazones) con un efecto "Pop"
+                .to('.corazon-hoja', {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.6,
+                    stagger: 0.015, // Brotan uno por uno rapidísimo
+                    ease: "back.out(2)"
+                }, "-=0.5")
+
+                // 4. Mostrar el contador y empezar a escribir la carta
+                .to('#contador', { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "+=0.5")
+                .call(() => {
+                    actualizarContador();
+                    setInterval(actualizarContador, 60000);
+                    maquinaEscribir(mensajeAmor, 'textoEmocional', 40);
+                });
+
+            }, 1000);
+        }
+
+        // Lógicas de Contador y Máquina de Escribir (Intactas)
+        function actualizarContador() {
+            const ahora = new Date();
+            let anos = ahora.getFullYear() - fechaNacimiento.getFullYear();
+            let mesActual = ahora.getMonth();
+            let mesNac = fechaNacimiento.getMonth();
+            
+            if (mesActual < mesNac || (mesActual === mesNac && ahora.getDate() < fechaNacimiento.getDate())) {
+                anos--;
+            }
+
+            const diferenciaMs = ahora - fechaNacimiento;
+            const totalDias = Math.floor(diferenciaMs / (1000 * 60 * 60 * 24));
+            const horas = ahora.getHours();
+            const minutos = ahora.getMinutes();
+
+            document.getElementById('anos').innerText = anos;
+            document.getElementById('dias').innerText = totalDias;
+            document.getElementById('horas').innerText = String(horas).padStart(2, '0');
+            document.getElementById('mins').innerText = String(minutos).padStart(2, '0');
+        }
+
+        function maquinaEscribir(texto, elementoId, velocidad) {
+            let i = 0;
+            const elemento = document.getElementById(elementoId);
+            elemento.innerHTML = "";
+            
+            function escribir() {
+                if (i < texto.length) {
+                    elemento.innerHTML += texto.charAt(i);
+                    i++;
+                    setTimeout(escribir, velocidad);
+                }
+            }
+            escribir();
+        }
+    </script>
+</body>
+</html>
