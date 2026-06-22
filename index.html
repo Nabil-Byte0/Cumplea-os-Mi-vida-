@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feliz Cumpleaños Vida Mía</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <style>
@@ -212,47 +212,34 @@
         <div class="contenido-der">
             <div class="contenedor-arbol-svg" id="zonaArbol">
                 <svg viewBox="0 0 600 600" id="svgArbol">
-                    <g id="capaRamas">
-                        <path id="tronco" class="rama-tronco" stroke-width="12" d="M 300,580 C 300,500 295,450 300,400" />
-                        
-                        <path id="palabraFeliz" class="rama-tronco" stroke-width="6" d="M 300,400 
-                                 C 260,390 200,340 180,310 
-                                 C 160,280 150,230 180,210 
-                                 C 200,195 215,220 200,240 
-                                 C 180,265 160,250 155,240 
-                                 C 145,220 185,210 210,215 
-                                 C 230,220 235,245 220,250 
-                                 C 205,255 195,235 225,210 
-                                 C 240,195 255,180 250,210 
-                                 C 245,240 235,255 255,250 
-                                 C 270,245 275,215 270,205
-                                 C 265,195 255,200 260,225
-                                 C 265,250 280,255 295,240
-                                 C 310,225 320,185 305,180
-                                 C 290,175 285,210 310,230
-                                 C 325,240 340,245 350,220" />
-                        
-                        <path id="palabraCumple" class="rama-tronco" stroke-width="5" d="M 300,400 
-                                 C 340,395 390,360 410,340
-                                 C 440,310 450,270 420,260
-                                 C 390,250 370,280 395,300
-                                 C 410,310 430,290 435,275
-                                 C 445,250 415,255 405,280
-                                 C 395,305 425,310 445,290
-                                 C 460,275 470,250 450,255
-                                 C 435,260 430,290 455,300
-                                 C 475,310 490,280 480,260
-                                 C 470,245 460,270 475,295
-                                 C 485,310 510,295 500,265
-                                 C 490,240 475,260 490,290
-                                 C 500,310 525,300 520,270
-                                 C 515,245 505,260 520,285
-                                 C 530,300 545,290 540,275
-                                 C 535,260 525,270 535,295
-                                 C 545,310 565,290 555,260
-                                 C 545,230 525,240 540,270
-                                 C 550,290 575,275 570,250" />
-                    </g>
+                    
+<g id="capaRamas">
+    <path id="tronco" class="rama-tronco" stroke-width="14"
+          d="M300 580 C300 520 300 470 300 410"/>
+
+    <path id="ramaIzq" class="rama-tronco" stroke-width="9"
+          d="M300 410 C270 370 230 330 180 290"/>
+
+    <path id="ramaDer" class="rama-tronco" stroke-width="9"
+          d="M300 410 C340 370 390 330 450 285"/>
+
+    <text id="textoFeliz"
+          x="120" y="245"
+          font-size="82"
+          font-family="'Great Vibes', cursive"
+          fill="none"
+          stroke="#5c3d2e"
+          stroke-width="2.8">Feliz</text>
+
+    <text id="textoCumple"
+          x="60" y="340"
+          font-size="90"
+          font-family="'Great Vibes', cursive"
+          fill="none"
+          stroke="#5c3d2e"
+          stroke-width="2.8">Cumpleaños</text>
+</g>
+
                 </svg>
             </div>
         </div>
